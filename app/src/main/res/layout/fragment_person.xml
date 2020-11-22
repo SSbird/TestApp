@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--用户个人页面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <androidx.core.widget.NestedScrollView style="@style/ScrollViewStyle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/riv_head_pic"
+                style="@style/RadiusImageView.Circle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toStartOf="@id/sRightImgId"
+                app:srcCompat="@drawable/ic_default_head" />
+
+
+            <TextView
+                android:id="@+id/person_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/xui_config_color_75_pure_black"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textAppearance="@style/Widget.MaterialComponents.ActionBar.Solid"
+                android:text="用户名"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                android:textColor="@color/xui_config_color_75_pure_black"
+                android:id="@+id/my_name"
+                android:text=" "
+                />
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                android:id="@+id/myItem"
+                style="@style/InfoItem.Account"
+                app:sLeftTextString="我发布的" />
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                android:id="@+id/myBuy"
+                style="@style/InfoItem.Account"
+                app:sLeftTextString="我购买的" />
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                android:id="@+id/myCollet"
+                style="@style/InfoItem.Account"
+                app:sDividerLineType="none"
+                app:sLeftTextString="收藏" />
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                android:id="@+id/customer_Request"
+                android:layout_marginTop="25dp"
+                style="@style/InfoItem.Account"
+                app:sDividerLineType="none"
+                app:sLeftTextString="求购请求" />
+
+            <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                android:id="@+id/self_wallet"
+                android:layout_marginTop="20dp"
+                style="@style/InfoItem.Account"
+                app:sDividerLineType="none"
+                app:sLeftTextString="钱包" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

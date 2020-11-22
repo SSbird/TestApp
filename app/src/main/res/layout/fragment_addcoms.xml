@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--发布商品页面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/xui_config_color_10_pure_black"
+        android:textColorHint="@color/xui_config_color_75_pure_black"
+        android:textAlignment="textStart"
+        android:id="@+id/item_info"
+        android:hint="请填写商品描述信息.." />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="25dp"
+        android:background="@color/xui_config_color_50_white"
+        android:textColorHint="@color/xui_config_color_75_pure_black"
+        android:textAlignment="center"
+        android:id="@+id/item_name"
+        android:hint="请填写商品名" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_gravity="center"
+            style="@style/TextStyle.Explain"
+            android:text="输入价格：" />
+
+        <EditText
+            android:layout_width="60dp"
+            android:id="@+id/input_price"
+            android:digits="1234567890."
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+    <com.xuexiang.xui.widget.imageview.nine.GridImageView
+        android:id="@+id/preview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_preview"/>
+
+    <com.xuexiang.xui.widget.shadow.ShadowTextView
+        android:id="@+id/pic_upload"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:paddingEnd="5dp"
+        android:layout_gravity="center"
+        android:paddingBottom="5dp"
+        android:text="选择商品图片上传"
+        android:textColor="@color/xui_config_color_white"
+        app:sd_bgColor="?attr/colorAccent"
+        app:sd_offsetX="5dp"
+        app:sd_offsetY="5dp"
+        app:sd_shadowRadius="5dp"
+        app:sd_shapeRadius="5dp" />
+
+    <com.xuexiang.xui.widget.button.ButtonView
+        android:layout_gravity="center"
+        android:id="@+id/sure"
+        android:text="上架商品"
+        style="@style/ButtonView.Blue"
+        android:layout_margin="20dp"/>
+
+
+</LinearLayout>

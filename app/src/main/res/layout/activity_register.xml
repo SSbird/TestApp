@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--用户注册页面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:text="@string/title_user_register"
+        android:textSize="30sp" />
+
+    <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+        android:id="@+id/reg_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="@string/tip_please_input_phone_number"
+        android:inputType="number"
+        app:met_clearButton="false"
+        app:met_floatingLabel="normal"
+        />
+
+    <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+        android:id="@+id/reg_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="@string/tip_please_input_username"
+        android:inputType="text"
+        app:met_clearButton="false"
+        app:met_floatingLabel="normal"
+         />
+
+    <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+        android:id="@+id/reg_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="@string/hint_please_input_password"
+        android:inputType="textPassword"
+        app:met_clearButton="false"
+        app:met_errorMessage="@string/tip_phone_number_error"
+        app:met_floatingLabel="normal"
+        />
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_verify_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        >
+
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+            android:id="@+id/reg_verify_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:hint="@string/hint_please_input_verify_code"
+            android:inputType="number"
+            app:met_clearButton="false"
+            app:met_errorMessage="@string/tip_verify_code_error"
+            app:met_floatingLabel="normal"
+            />
+
+
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+            android:id="@+id/reg_get_verify_code"
+            style="@style/RoundButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="3dp"
+            android:text="@string/action_get_verify_code"
+            android:textColor="@color/selector_round_button_main_theme_color"
+            android:textSize="13sp"
+            app:rb_borderColor="@color/selector_round_button_main_theme_color"
+            app:rb_borderWidth="1.5dp"
+            app:rb_radius="15dp" />
+
+    </FrameLayout>
+
+    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+        android:id="@+id/btn_register"
+        app:layout_constraintTop_toBottomOf="@id/fl_verify_code"
+        style="@style/SuperButton.Primary.Register"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_register"
+        />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+</LinearLayout>

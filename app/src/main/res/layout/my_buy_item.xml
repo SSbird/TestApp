@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--"我购买的"记录子项布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/xui_config_color_75_white"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        >
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/shopper_head_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            app:srcCompat="@drawable/ic_default_head" />
+
+        <TextView
+            android:id="@+id/shopper_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/shopper_head_icon"
+            android:layout_marginLeft="5dp"
+            android:text="卖家名称"
+            android:textAppearance="@style/Widget.MaterialComponents.ActionBar.Solid"
+            android:textColor="@color/xui_config_color_75_pure_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="交易成功"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/Widget.MaterialComponents.ActionBar.Solid"
+            android:textColor="@color/color_orange"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/shop_item_image"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_preview" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/ac_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/price_pay"
+            android:text="实付款 ￥"
+            android:textColor="@color/xui_config_color_75_pure_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/price_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=" "
+            android:textColor="@color/xui_config_color_75_pure_black"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

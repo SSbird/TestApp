@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--"我发布的"商品列表的商品子项布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/xui_config_color_75_white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/item_self_image"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/xui_config_color_75_pure_black"
+            android:textSize="14sp"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:id="@+id/price_self"/>
+
+        <TextView
+            android:id="@+id/hide_id_myItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="1sp"
+            android:text=" "
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+</LinearLayout>

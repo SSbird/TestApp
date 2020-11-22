@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--商品评论布局(未启用)-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/riv_head_pic"
+        style="@style/RadiusImageView.Circle"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_gravity="left"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/ic_default_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:textColor="@color/xui_config_color_gray_6"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comment"
+            android:textSize="12sp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--"我的钱包"页面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="#3DDC84">
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_wallet"
+            android:layout_centerInParent="true"/>
+
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="钱包"
+            android:id="@+id/wallet_image"
+            android:layout_marginTop="20dp"
+            android:textSize="28sp"
+            android:textColor="@color/xui_config_color_75_pure_black"/>
+
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:textSize="24sp"
+            android:textColor="@color/xui_config_color_75_pure_black"
+            android:text=" "/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
