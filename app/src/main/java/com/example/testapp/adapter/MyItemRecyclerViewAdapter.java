@@ -52,7 +52,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mPrice.setText("￥".concat(String.valueOf(holder.mItem.price)));
         holder.mID.setText(holder.mItem.id);
         holder.mImageView.setOnClickListener(this);
-        holder.mContentView.setOnClickListener(this);
     }
 
     @Override

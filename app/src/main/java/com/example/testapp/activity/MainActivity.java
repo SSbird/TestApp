@@ -1,14 +1,12 @@
 package com.example.testapp.activity;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
 
 import com.example.testapp.MyApp;
 import com.example.testapp.R;
@@ -23,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
-import com.xuexiang.xui.widget.toast.XToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,12 +73,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 String temp = (String) tab.getText();
-                if ("我的".equals(temp)) {
+                if ("我的".equals(temp)) {        //  获取用户发布的商品信息，包含图片，价格等等，每点击一次就会更新APP中的Map
                     app = (MyApp) getApplication();
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("phoneNumber", app.getApp_map().get("phone"));
                     Novate novate = new Novate.Builder(MainActivity.this).baseUrl(Web.PREFIX_LOCAL.val()).build();
-                    //  获取用户发布的商品信息，包含图片，价格等等，每点击一次就会更新APP中的Map
                     novate.rxPost("/getSelfItemCount", map, new RxStringCallback() {
                         @Override
                         public void onError(Object tag, Throwable e) {

@@ -29,7 +29,45 @@ public class DummyContent {
         Novate novate = new Novate.Builder(context).baseUrl(Web.PREFIX_LOCAL.val()).build();
         items = new ArrayList<>();
         itemList = new ArrayList<>();
-        novate.rxPost("/itemList", new HashMap<>(), new RxStringCallback() {
+        novate.rxGet("/itemList", new HashMap<>(), new RxStringCallback() {
+            @Override
+            public void onNext(Object tag, String response) {
+                itemList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
+                }.getType());
+                HashMap<String, Object> map;
+                for (int i = 0; i < itemList.size(); i++) {
+                    map = itemList.get(i);
+                    double temp = (double) map.get("id");
+                    double price = (double) map.get("price");
+                    String name = (String) map.get("name");
+                    String ownerName = (String) map.get("ownerName");
+                    String content_image = (String) map.get("content_image");
+                    String content_image_owner = (String) map.get("content_image_owner");
+                    String id = String.valueOf((int) temp);
+                    addItem(createDummyItem(name, content_image, ownerName, content_image_owner, price, id));
+                }
+            }
+
+            @Override
+            public void onError(Object tag, Throwable e) {
+
+            }
+
+            @Override
+            public void onCancel(Object tag, Throwable e) {
+
+            }
+        });
+        return true;
+    }
+
+    public boolean init(String param) {
+        Novate novate = new Novate.Builder(context).baseUrl(Web.PREFIX_LOCAL.val()).build();
+        items = new ArrayList<>();
+        itemList = new ArrayList<>();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("param", param);
+        novate.rxPost("/itemList", map, new RxStringCallback() {
             @Override
             public void onNext(Object tag, String response) {
                 itemList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
