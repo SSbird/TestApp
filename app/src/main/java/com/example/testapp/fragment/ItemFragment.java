@@ -48,28 +48,28 @@ public class ItemFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        searchView = view.findViewById(R.id.search_view);
-        searchView.setBackgroundColor(getResources().getColor(R.color.xui_config_color_75_white));
-        searchView.setHint("输入商品名");
-        searchView.setEllipsize(false);
-        searchView.setVoiceSearch(false);
-        searchView.setOnQueryTextListener(this);
         refreshLayout = view.findViewById(R.id.refresh_layout);
         refreshLayout.setOnRefreshListener(this);
         recyclerView = view.findViewById(R.id.items_list);
         adapter = new MyItemRecyclerViewAdapter(getActivity(), dummyContent.items);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(fabView -> searchView.showSearch());
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+        searchView = view.findViewById(R.id.search_view);
+        searchView.setBackgroundColor(getResources().getColor(R.color.xui_config_color_75_white));
+        searchView.setHint("输入商品名");
+        searchView.setEllipsize(false);
+        searchView.setVoiceSearch(false);
+        searchView.setOnQueryTextListener(this);
+        searchView.showSearch();
+        searchView.closeSearch();
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(fabView -> searchView.showSearch());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ItemFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
+    public boolean onQueryTextSubmit(String query) {        // 搜索商品
         if (dummyContent.init(query)) {
             handler_item.sendEmptyMessageDelayed(2, 1000);
         }

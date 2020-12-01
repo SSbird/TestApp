@@ -7,7 +7,6 @@
     android:background="@color/xui_config_color_75_white"
     android:orientation="horizontal">
 
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="100dp">
@@ -33,14 +32,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textColor="@color/transparent_white"
+            android:textColor="@color/xui_config_color_75_white"
             android:textSize="1sp"
             android:visibility="invisible"
             android:textAlignment="center"
             android:id="@+id/id_hide"/>
 
     </RelativeLayout>
-
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -60,7 +58,6 @@
 
 
         <!--        商品卖家       -->
-        <!--        android:textAlignment="center"-->
         <TextView
             android:id="@+id/owner"
             android:layout_width="wrap_content"

@@ -40,7 +40,7 @@
             android:text="交易成功"
             android:layout_alignParentRight="true"
             android:textAppearance="@style/Widget.MaterialComponents.ActionBar.Solid"
-            android:textColor="@color/color_orange"
+            android:textColor="@color/xui_config_color_red"
             android:textSize="16sp" />
 
     </RelativeLayout>

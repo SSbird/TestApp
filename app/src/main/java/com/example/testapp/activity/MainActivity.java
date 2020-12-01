@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             XToastUtils.success("登录成功");
         }
 
+//        BottomNavigationView bottom = findViewById();
+//        FragmentAdapter<Fragment> adapter = new FragmentAdapter<>(getSupportFragmentManager());
         ViewPager mViewPager = findViewById(R.id.vp);
         TabLayout mtabLayout = findViewById(R.id.tabs);
 

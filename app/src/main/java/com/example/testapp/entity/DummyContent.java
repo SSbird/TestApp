@@ -29,7 +29,7 @@ public class DummyContent {
         Novate novate = new Novate.Builder(context).baseUrl(Web.PREFIX_LOCAL.val()).build();
         items = new ArrayList<>();
         itemList = new ArrayList<>();
-        novate.rxGet("/itemList", new HashMap<>(), new RxStringCallback() {
+        novate.rxPost("/itemList", new HashMap<>(), new RxStringCallback() {
             @Override
             public void onNext(Object tag, String response) {
                 itemList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
@@ -67,7 +67,7 @@ public class DummyContent {
         itemList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         map.put("param", param);
-        novate.rxPost("/itemList", map, new RxStringCallback() {
+        novate.rxPost("/itemList_search", map, new RxStringCallback() {
             @Override
             public void onNext(Object tag, String response) {
                 itemList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
