@@ -35,9 +35,8 @@
         <activity android:name=".activity.MyItemActivity" />
         <activity android:name=".activity.CommodityInfoActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.RequestListActivity" />
-<!--        <activity android:name=".activity.LoginActivity"></activity>-->
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RequestListActivity" /> <!-- <activity android:name=".activity.LoginActivity"></activity> -->
+        <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

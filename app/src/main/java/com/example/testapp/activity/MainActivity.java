@@ -1,38 +1,31 @@
 package com.example.testapp.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.testapp.MyApp;
 import com.example.testapp.R;
 import com.example.testapp.fragment.AddItemFragment;
 import com.example.testapp.fragment.ItemFragment;
 import com.example.testapp.fragment.PersonFragment;
-import com.example.testapp.utils.Web;
 import com.example.testapp.utils.XToastUtils;
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.tamic.novate.Novate;
-import com.tamic.novate.Throwable;
-import com.tamic.novate.callback.RxStringCallback;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 // 系统主页
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private MyApp app;
-    private static List<HashMap<String, Object>> mapList = new ArrayList<>();
-
-    List<Fragment> fragments = new ArrayList<>();
+    private ViewPager viewPager;
+    private BottomNavigationView bottomNavigationView;
+    private List<String> titles = new ArrayList<>();
+    private List<Fragment> fragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new ItemFragment());
         fragments.add(new AddItemFragment());
         fragments.add(new PersonFragment());
+        titles.add(getResources().getString(R.string.menu_commodity));
+        titles.add(getResources().getString(R.string.menu_add));
+        titles.add(getResources().getString(R.string.menu_profile));
 
         String state = getIntent().getStringExtra("login_state");
         if ("yes".equals(state)) {
@@ -48,76 +44,51 @@ public class MainActivity extends AppCompatActivity {
             XToastUtils.success("登录成功");
         }
 
-//        BottomNavigationView bottom = findViewById();
-//        FragmentAdapter<Fragment> adapter = new FragmentAdapter<>(getSupportFragmentManager());
-        ViewPager mViewPager = findViewById(R.id.vp);
-        TabLayout mtabLayout = findViewById(R.id.tabs);
-
-        mtabLayout.addTab(mtabLayout.newTab().setIcon(R.mipmap.ic_commodity).setText(R.string.menu_commodity));
-        mtabLayout.addTab(mtabLayout.newTab().setIcon(R.mipmap.ic_add).setText(R.string.menu_add));
-        mtabLayout.addTab(mtabLayout.newTab().setIcon(R.mipmap.ic_person).setText((R.string.menu_profile)));
-
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+        viewPager = findViewById(R.id.vp);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager(),
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
             public int getCount() {
                 return fragments.size();
             }
+
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
         };
-        mViewPager.setAdapter(fragmentPagerAdapter);
-        mtabLayout.setupWithViewPager(mViewPager);
-        mtabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                String temp = (String) tab.getText();
-                if ("我的".equals(temp)) {        //  获取用户发布的商品信息，包含图片，价格等等，每点击一次就会更新APP中的Map
-                    app = (MyApp) getApplication();
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("phoneNumber", app.getApp_map().get("phone"));
-                    Novate novate = new Novate.Builder(MainActivity.this).baseUrl(Web.PREFIX_LOCAL.val()).build();
-                    novate.rxPost("/getSelfItemCount", map, new RxStringCallback() {
-                        @Override
-                        public void onError(Object tag, Throwable e) {
+        viewPager.setOffscreenPageLimit(fragments.size() - 1);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
 
-                        }
+    @Override
+    public void onPageSelected(int position) {
+        bottomNavigationView.getMenu().getItem(position).setChecked(true);
+    }
 
-                        @Override
-                        public void onCancel(Object tag, Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(Object tag, String response) {
-                            mapList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
-                            }.getType());
-                            app.getApp_map().put("user_release_count", mapList.size());
-                            MyApp.setUser_item_list(mapList);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mtabLayout.getTabAt(0).setIcon(R.mipmap.ic_commodity).setText(R.string.menu_commodity);
-        mtabLayout.getTabAt(1).setIcon(R.mipmap.ic_add).setText(R.string.menu_add);
-        mtabLayout.getTabAt(2).setIcon(R.mipmap.ic_person).setText(R.string.menu_profile);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        for (int i = 0; i < titles.size(); i++) {
+            if (item.getTitle().equals(titles.get(i))) {
+                viewPager.setCurrentItem(i, true);
+                return true;
+            }
+        }
+        return false;
+    }
 }

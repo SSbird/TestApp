@@ -1,5 +1,6 @@
 package com.example.testapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,12 +33,14 @@ import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
 
     private Novate novate;
     private MyApp app;
 
+    @SuppressLint("InflateParams")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,13 +69,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onNext(Object tag, String response) {
                 if ("null".equals(response)) {      // 没有设置头像
-                    Glide.with(getActivity()).load(R.drawable.ic_default_head).into(headIcon);
+                    Glide.with(PersonFragment.this).load(R.drawable.ic_default_head).into(headIcon);
                 } else {
                     HashMap<String, Object> map = new Gson().fromJson(response, new TypeToken<HashMap<String, Object>>() {
                     }.getType());
                     TextView username = view.findViewById(R.id.person_username);
                     username.setText(String.valueOf(map.get("username")));
-                    Glide.with(getActivity()).load(Web.PREFIX_LOCAL.val() + map.get("head_icon")).into(headIcon);
+                    Glide.with(PersonFragment.this).load(Web.PREFIX_LOCAL.val() + map.get("head_icon")).into(headIcon);
                 }
             }
         });
@@ -82,7 +85,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     //  跳转页面
     @Override
     public void onClick(View view) {
-        Intent intent;
         switch (view.getId()) {     //  求购请求
             case R.id.customer_Request:
                 HashMap<String, Object> requestMap = new HashMap<>();
@@ -90,15 +92,16 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                 sendHttp("/getRequireList", requestMap);
                 break;
             case R.id.myItem:       //  我发布的
-                intent = new Intent(getActivity(), MyItemActivity.class);
-                startActivity(intent);
+                HashMap<String, Object> release_map = new HashMap<>();
+                release_map.put("phoneNumber", app.getApp_map().get("phone"));
+                sendHttp("/getSelfItemCount", release_map);
                 break;
             case R.id.myBuy:        //  我购买的
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("phoneNumber", app.getApp_map().get("phone"));
                 sendHttp("/getSelfBuyItems", map);
                 break;
-            case R.id.myCollet:     //  我收藏的
+            case R.id.myCollect:     //  我收藏的
                 HashMap<String, Object> coll_map = new HashMap<>();
                 coll_map.put("phoneNumber", app.getApp_map().get("phone"));
                 sendHttp("/getSelfCollCount", coll_map);
@@ -116,7 +119,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         if (act != null) {
             SuperTextView textView_myItem = act.findViewById(R.id.myItem);
             SuperTextView textView_myBuy = act.findViewById(R.id.myBuy);
-            SuperTextView textView_myCollect = act.findViewById(R.id.myCollet);
+            SuperTextView textView_myCollect = act.findViewById(R.id.myCollect);
             SuperTextView textView_myWallet = act.findViewById(R.id.self_wallet);
             SuperTextView textView_request = act.findViewById(R.id.customer_Request);
             textView_myItem.setOnClickListener(this);
@@ -156,6 +159,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                 } else if ("/getSelfBuyItems".equals(url)) {
                     intent = new Intent(getActivity(), MyBuyActivity.class);
                     intent.putExtra("mapList", response);
+                    startActivity(intent);
+                } else if ("/getSelfItemCount".equals(url)) {
+                    List<HashMap<String, Object>> mapList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
+                    }.getType());
+                    app.getApp_map().put("user_release_count", mapList.size());
+                    MyApp.setUser_item_list(mapList);
+                    intent = new Intent(getActivity(), MyItemActivity.class);
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), RequestListActivity.class);

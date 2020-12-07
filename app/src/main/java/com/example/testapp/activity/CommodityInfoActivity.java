@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.adapters.ViewGroupBindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.testapp.MyApp;
@@ -114,8 +113,6 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                             sc_map.put("good_id", id);
                             sendHttp(sc_map, REQUIRE);
                         }).show();
-                MaterialDialog dialog = new MaterialDialog.Builder(this).build();
-                dialog.dismiss();
                 break;
             case R.id.sc:       // 收藏按钮
                 HashMap<String, Object> sc_map;
@@ -144,8 +141,10 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                 Message msg = new Message();
                 if ("success".equals(response)) {
                     msg.what = 2;
-                } else if ("failed".equals(response)) {
+                } else if ("not_enough_money".equals(response)) {
                     msg.what = 3;
+                } else {
+                    msg.what = 4;
                 }
                 handler_commodity.sendMessage(msg);
                 Log.d("CommodityInfo.sendHttp", "成功");
@@ -210,6 +209,8 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
             } else if (msg.what == 2) {        // 求购成功
                 XToastUtils.info("已发出求购请求");
             } else if (msg.what == 3) {        // 重复求购
+                XToastUtils.warning("求购失败: 您的余额不足");
+            } else {
                 XToastUtils.warning("请勿重复求购");
             }
         }

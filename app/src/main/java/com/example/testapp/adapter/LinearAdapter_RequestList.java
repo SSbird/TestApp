@@ -64,7 +64,7 @@ public class LinearAdapter_RequestList extends RecyclerView.Adapter<LinearAdapte
 
     @Override
     public int getItemCount() {
-        if(dataList == null){
+        if (dataList == null) {
             return 0;
         }
         return dataList.size();
@@ -94,7 +94,11 @@ public class LinearAdapter_RequestList extends RecyclerView.Adapter<LinearAdapte
                             novate.rxPost("/delRequire", map, new RxStringCallback() {
                                 @Override
                                 public void onNext(Object tag, String response) {
-                                    XToastUtils.info("交易成功");
+                                    if ("success".equals(response)) {
+                                        XToastUtils.info("交易成功");
+                                    } else {
+                                        XToastUtils.warning("交易失败: 对方余额不足");
+                                    }
                                     mContext.startActivity(new Intent(mContext, MainActivity.class));
                                 }
 

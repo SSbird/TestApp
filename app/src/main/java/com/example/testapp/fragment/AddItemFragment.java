@@ -118,7 +118,7 @@ public class AddItemFragment extends Fragment {
             List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
             for (LocalMedia local : list) {
                 path = local.getPath();
-                Glide.with(getActivity()).load(new File(path)).into(imageView);
+                Glide.with(this).load(new File(path)).into(imageView);
             }
         }
     }

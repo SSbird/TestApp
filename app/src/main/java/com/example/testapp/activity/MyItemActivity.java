@@ -1,10 +1,10 @@
 package com.example.testapp.activity;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.example.testapp.MyApp;
 import com.example.testapp.R;
@@ -23,6 +23,6 @@ public class MyItemActivity extends AppCompatActivity {
         TitleBar titleBar = findViewById(R.id.titleBar_myItem);
         titleBar.setLeftClickListener(v -> this.finish());
         rView.setLayoutManager(new LinearLayoutManager(MyItemActivity.this));
-        rView.setAdapter(new LinearAdapter_MyItem(MyItemActivity.this, app.getApp_map(), MyApp.getUser_item_list()));
+        rView.setAdapter(new LinearAdapter_MyItem(this, app.getApp_map(), MyApp.getUser_item_list()));
     }
 }

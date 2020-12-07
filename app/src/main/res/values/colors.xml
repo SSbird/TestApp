@@ -9,4 +9,7 @@
     <color name="themeColor">#2196f3</color>
     <color name="themeTextColor">#ffffff</color>
     <color name="lineColor">#cccccc</color>
+
+    <color name="menu_red_normal">#FF0000</color>
+    <color name="menu_red_pressed">#FF6666</color>
 </resources>

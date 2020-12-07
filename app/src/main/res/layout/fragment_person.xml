@@ -50,18 +50,27 @@
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                 android:id="@+id/myItem"
+                app:sLeftIconRes="@drawable/ic_upload"
+                app:sLeftIconWidth="20dp"
+                app:sLeftIconHeight="20dp"
                 style="@style/InfoItem.Account"
                 app:sLeftTextString="我发布的" />
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                 android:id="@+id/myBuy"
                 style="@style/InfoItem.Account"
+                app:sLeftIconRes="@drawable/ic_buy"
+                app:sLeftIconWidth="20dp"
+                app:sLeftIconHeight="20dp"
                 app:sLeftTextString="我购买的" />
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
-                android:id="@+id/myCollet"
+                android:id="@+id/myCollect"
                 style="@style/InfoItem.Account"
                 app:sDividerLineType="none"
+                app:sLeftIconRes="@drawable/ic_collect"
+                app:sLeftIconWidth="20dp"
+                app:sLeftIconHeight="20dp"
                 app:sLeftTextString="收藏" />
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
@@ -69,6 +78,9 @@
                 android:layout_marginTop="25dp"
                 style="@style/InfoItem.Account"
                 app:sDividerLineType="none"
+                app:sLeftIconRes="@drawable/ic_request"
+                app:sLeftIconWidth="20dp"
+                app:sLeftIconHeight="20dp"
                 app:sLeftTextString="求购请求" />
 
             <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
@@ -76,6 +88,9 @@
                 android:layout_marginTop="20dp"
                 style="@style/InfoItem.Account"
                 app:sDividerLineType="none"
+                app:sLeftIconRes="@drawable/ic_wallet"
+                app:sLeftIconWidth="20dp"
+                app:sLeftIconHeight="20dp"
                 app:sLeftTextString="钱包" />
 
         </LinearLayout>
