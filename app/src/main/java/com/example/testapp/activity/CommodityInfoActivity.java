@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -47,14 +46,19 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
 
     private IGoodView goodView;
 
-    private static final String ITEMINFO = "/getItemInfo";
-    private static final String DELCOL = "/delUserCol";
-    private static final String ADDCOL = "/addUserCol";
+    private static final String INFO_ITEM = "/getItemInfo";
+    private static final String COLL_DEL = "/delUserCol";
+    private static final String COLL_ADD = "/addUserCol";
     private static final String REQUIRE = "/addRequire";
+    private static final int ADD_REQUEST_SUCCESS = 2;
+    private static final int NOT_ENOUGH_MONEY = 3;
+    private static final int REQUEST_DUPLICATE = 4;
 
     private Handler_Commodity handler_commodity;
     private int[] select = {R.drawable.ic_collection, R.drawable.ic_collection_checked};
     private int current = 0;
+
+    private HashMap<String, Object> infoMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,27 +74,24 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("phone", MyApp.getApp_map().get("phone"));
-        novate.rxPost(ITEMINFO, map, new RxStringCallback() {   // 获取商品数据
+        novate.rxPost(INFO_ITEM, map, new RxStringCallback() {   // 获取商品数据
             @Override
             public void onError(Object tag, Throwable e) {
-                Log.d("CommodityInfo.onCreate", "失败...");
+                XToastUtils.error("获取商品信息出错!");
             }
 
             @Override
             public void onCancel(Object tag, Throwable e) {
-                Log.d("CommodityInfo.onCreate", "取消.");
+
             }
 
             @Override
             public void onNext(Object tag, String response) {
-                Log.d("CommodityInfo.onCreate", "成功");
                 HashMap<String, Object> temp;
                 temp = new Gson().fromJson(response, new TypeToken<HashMap<String, Object>>() {
                 }.getType());
-                Message msg = new Message();
-                msg.what = 1;
-                msg.obj = temp;
-                handler_commodity.sendMessage(msg);
+                infoMap = temp;
+                handler_commodity.sendEmptyMessage(1);
             }
         });
     }
@@ -122,11 +123,11 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                 if (current == 1) {
                     goodView.setTextInfo("收藏成功", Color.parseColor("#f66467"), 14)
                             .show(view);
-                    sendHttp(sc_map, ADDCOL);
+                    sendHttp(sc_map, COLL_ADD);
                 } else {
                     goodView.setTextInfo("取消收藏", Color.parseColor("#f66467"), 14)
                             .show(view);
-                    sendHttp(sc_map, DELCOL);
+                    sendHttp(sc_map, COLL_DEL);
                 }
                 break;
         }
@@ -137,11 +138,11 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onNext(Object tag, String response) {
                 if ("success".equals(response)) {
-                    handler_commodity.sendEmptyMessage(2);
+                    handler_commodity.sendEmptyMessage(ADD_REQUEST_SUCCESS);
                 } else if ("not_enough_money".equals(response)) {
-                    handler_commodity.sendEmptyMessage(3);
+                    handler_commodity.sendEmptyMessage(NOT_ENOUGH_MONEY);
                 } else if ("duplicate".equals(response)) {
-                    handler_commodity.sendEmptyMessage(4);
+                    handler_commodity.sendEmptyMessage(REQUEST_DUPLICATE);
                 }
             }
 
@@ -178,16 +179,15 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == 1) {        // 给界面填充数据
                 CommodityInfoActivity com = weakReference.get();
+                double temp = (double) com.infoMap.get("price");
                 com.initComponents();
-                HashMap<String, Object> map = (HashMap<String, Object>) msg.obj;
-                com.sc_box.setOnClickListener(weakReference.get());
-                com.btn_want.setOnClickListener(weakReference.get());
-                com.ownerName.setText((String) map.get("ownerName"));
-                com.desc.setText((String) map.get("desc"));
-                double temp = (double) map.get("price");
+                com.sc_box.setOnClickListener(com);
+                com.btn_want.setOnClickListener(com);
+                com.ownerName.setText((String) com.infoMap.get("ownerName"));
+                com.desc.setText((String) com.infoMap.get("desc"));
                 com.price.setText("￥".concat(String.valueOf((int) temp)));
-                com.owner = (String) map.get("owner");
-                if ("yes".equals(map.get("collected"))) {   // 已收藏
+                com.owner = (String) com.infoMap.get("owner");
+                if ("yes".equals(com.infoMap.get("collected"))) {   // 已收藏
                     com.current = 1;
                 } else {
                     com.current = 0;
@@ -199,10 +199,10 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                 } else {
                     com.btn_want.setClickable(true);
                 }
-                Glide.with(com).load(Web.PREFIX_LOCAL.val() + map.get("image")).into(com.img);
-            } else if (msg.what == 2) {        // 求购成功
+                Glide.with(com).load(Web.PREFIX_LOCAL.val() + com.infoMap.get("image")).into(com.img);
+            } else if (msg.what == ADD_REQUEST_SUCCESS) {        // 求购成功
                 XToastUtils.info("已发出求购请求");
-            } else if (msg.what == 3) {    // 重复求购
+            } else if (msg.what == NOT_ENOUGH_MONEY) {    // 重复求购
                 XToastUtils.warning("求购失败: 您的余额不足");
             } else {    // 重复求购
                 XToastUtils.warning("请勿重复求购");
