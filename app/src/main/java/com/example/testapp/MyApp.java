@@ -27,7 +27,7 @@ public class MyApp extends Application {
         XHttpSDK.setBaseUrl("http://10.0.2.2");
     }
 
-    public HashMap<String, Object> getApp_map() {
+    public static HashMap<String, Object> getApp_map() {
         return app_map;
     }
 

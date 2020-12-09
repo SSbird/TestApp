@@ -138,26 +138,23 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
         novate.rxPost(url, map, new RxStringCallback() {
             @Override
             public void onNext(Object tag, String response) {
-                Message msg = new Message();
                 if ("success".equals(response)) {
-                    msg.what = 2;
+                    handler_commodity.sendEmptyMessage(2);
                 } else if ("not_enough_money".equals(response)) {
-                    msg.what = 3;
-                } else {
-                    msg.what = 4;
+                    handler_commodity.sendEmptyMessage(3);
+                } else if ("duplicate".equals(response)) {
+                    handler_commodity.sendEmptyMessage(4);
                 }
-                handler_commodity.sendMessage(msg);
-                Log.d("CommodityInfo.sendHttp", "成功");
             }
 
             @Override
             public void onError(Object tag, Throwable e) {
-                Log.d("CommodityInfo.sendHttp", "失败..");
+                XToastUtils.error("请求出错!");
             }
 
             @Override
             public void onCancel(Object tag, Throwable e) {
-                Log.d("CommodityInfo.sendHttp", "取消.");
+
             }
         });
     }
@@ -199,7 +196,7 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                     com.current = 0;
                 }
                 com.sc_box.setImageResource(com.select[com.current]);
-                if (com.owner != null && com.owner.equals(app.getApp_map().get("phone"))) {      // 防止用户自己购买自己商品
+                if (com.owner != null && com.owner.equals(app.getApp_map().get("phone"))) {      // 商品物主不可求购自己物品
                     com.btn_want.setBackgroundColor(com.getResources().getColor(R.color.xui_btn_disable_color));
                     com.btn_want.setClickable(false);
                 } else {
@@ -208,9 +205,9 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                 Glide.with(com).load(Web.PREFIX_LOCAL.val() + map.get("image")).into(com.img);
             } else if (msg.what == 2) {        // 求购成功
                 XToastUtils.info("已发出求购请求");
-            } else if (msg.what == 3) {        // 重复求购
+            } else if (msg.what == 3) {    // 重复求购
                 XToastUtils.warning("求购失败: 您的余额不足");
-            } else {
+            } else {    // 重复求购
                 XToastUtils.warning("请勿重复求购");
             }
         }

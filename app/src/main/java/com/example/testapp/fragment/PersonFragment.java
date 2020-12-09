@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import com.example.testapp.activity.MyItemActivity;
 import com.example.testapp.activity.MyMoneyActivity;
 import com.example.testapp.activity.RequestListActivity;
 import com.example.testapp.utils.Web;
+import com.example.testapp.utils.XToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tamic.novate.Novate;
@@ -38,7 +38,8 @@ import java.util.List;
 public class PersonFragment extends Fragment implements View.OnClickListener {
 
     private Novate novate;
-    private MyApp app;
+    //    private MyApp app;
+    //        app = (MyApp) getActivity().getApplication();
 
     @SuppressLint("InflateParams")
     @Nullable
@@ -50,20 +51,18 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ImageView headIcon = view.findViewById(R.id.riv_head_pic);
-        app = (MyApp) getActivity().getApplication();
-        String phone = (String) app.getApp_map().get("phone");
+        String phone = (String) MyApp.getApp_map().get("phone");
         novate = new Novate.Builder(getActivity()).baseUrl(Web.PREFIX_LOCAL.val()).build();
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         novate.rxPost("/getUserDisplay", map, new RxStringCallback() {
             @Override
             public void onError(Object tag, Throwable e) {
-                Log.d("RXpost_person", "失败...");
+                XToastUtils.error("请求出错!");
             }
 
             @Override
             public void onCancel(Object tag, Throwable e) {
-                Log.d("RXpost_person", "取消...");
             }
 
             @Override
@@ -88,27 +87,27 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {     //  求购请求
             case R.id.customer_Request:
                 HashMap<String, Object> requestMap = new HashMap<>();
-                requestMap.put("shopper_id", app.getApp_map().get("phone"));
+                requestMap.put("shopper_id", MyApp.getApp_map().get("phone"));
                 sendHttp("/getRequireList", requestMap);
                 break;
             case R.id.myItem:       //  我发布的
                 HashMap<String, Object> release_map = new HashMap<>();
-                release_map.put("phoneNumber", app.getApp_map().get("phone"));
+                release_map.put("phoneNumber", MyApp.getApp_map().get("phone"));
                 sendHttp("/getSelfItemCount", release_map);
                 break;
             case R.id.myBuy:        //  我购买的
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("phoneNumber", app.getApp_map().get("phone"));
+                map.put("phoneNumber", MyApp.getApp_map().get("phone"));
                 sendHttp("/getSelfBuyItems", map);
                 break;
             case R.id.myCollect:     //  我收藏的
                 HashMap<String, Object> coll_map = new HashMap<>();
-                coll_map.put("phoneNumber", app.getApp_map().get("phone"));
-                sendHttp("/getSelfCollCount", coll_map);
+                coll_map.put("phoneNumber", MyApp.getApp_map().get("phone"));
+                sendHttp("/getSelfCollectItems", coll_map);
                 break;
             case R.id.self_wallet:      // 钱包
                 HashMap<String, Object> wallet_map = new HashMap<>();
-                wallet_map.put("phone", app.getApp_map().get("phone"));
+                wallet_map.put("phone", MyApp.getApp_map().get("phone"));
                 sendHttp("/checkMyWallet", wallet_map);
                 break;
         }
@@ -145,7 +144,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onNext(Object tag, String response) {
                 Intent intent;
-                if ("/getSelfCollCount".equals(url)) {
+                if ("/getSelfCollectItems".equals(url)) {
                     ArrayList<HashMap<String, Object>> mapList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
                     }.getType());
                     intent = new Intent(getActivity(), MyCollectActivity.class);
@@ -163,7 +162,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                 } else if ("/getSelfItemCount".equals(url)) {
                     List<HashMap<String, Object>> mapList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
                     }.getType());
-                    app.getApp_map().put("user_release_count", mapList.size());
+                    MyApp.getApp_map().put("user_release_count", mapList.size());
                     MyApp.setUser_item_list(mapList);
                     intent = new Intent(getActivity(), MyItemActivity.class);
                     startActivity(intent);
