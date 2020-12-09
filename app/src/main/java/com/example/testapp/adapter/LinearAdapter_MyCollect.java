@@ -62,16 +62,16 @@ public class LinearAdapter_MyCollect extends RecyclerView.Adapter<LinearAdapter_
         public LinearViewHolder(View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.collectItem_name);
-            imageView = itemView.findViewById(R.id.item_self_image);
-            price_self = itemView.findViewById(R.id.price_self);
-            hide_id = itemView.findViewById(R.id.hide_id_myItem);
+            imageView = itemView.findViewById(R.id.item_collect_image);
+            price_self = itemView.findViewById(R.id.price_collect);
+            hide_id = itemView.findViewById(R.id.hide_id_collectItem);
         }
     }
 
     @Override
     public void onClick(View view) {
         View temp = (View) view.getParent();
-        TextView viewById = temp.findViewById(R.id.hide_id_myItem);
+        TextView viewById = temp.findViewById(R.id.hide_id_collectItem);
         String id = String.valueOf(viewById.getText());
         Intent intent = new Intent(mContext, CommodityInfoActivity.class);
         intent.putExtra("id", id);
