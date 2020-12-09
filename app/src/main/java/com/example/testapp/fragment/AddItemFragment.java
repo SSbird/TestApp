@@ -75,8 +75,11 @@ public class AddItemFragment extends Fragment {
             String value_desc = String.valueOf(item_info.getText());
             String value_name = String.valueOf(item_name.getText());
             String value_price = String.valueOf(input.getText());
-            MyApp app = (MyApp) getActivity().getApplication();
-            String phone = (String) app.getApp_map().get("phone");
+            String phone = (String) MyApp.getApp_map().get("phone");
+            if (phone == null) {
+                resetValues();
+                return;
+            }
             if (value_desc.equals("") || value_name.equals("") || value_price.equals("") || path == null) {
                 XToastUtils.warning("请填写完整信息");
             } else {

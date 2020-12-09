@@ -68,9 +68,8 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
         TitleBar titleBar = findViewById(R.id.titleBar_commodity);
         titleBar.setLeftClickListener(v -> this.finish());
         HashMap<String, Object> map = new HashMap<>();
-        MyApp app = (MyApp) getApplication();
         map.put("id", id);
-        map.put("phone", app.getApp_map().get("phone"));
+        map.put("phone", MyApp.getApp_map().get("phone"));
         novate.rxPost(ITEMINFO, map, new RxStringCallback() {   // 获取商品数据
             @Override
             public void onError(Object tag, Throwable e) {
@@ -98,7 +97,6 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {        // 点击事件
-        MyApp app = (MyApp) getApplication();
         switch (view.getId()) {
             case R.id.wxy:      // 求购按钮
                 new MaterialDialog.Builder(this)
@@ -108,7 +106,7 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                         .onPositive((dialog, which) -> {     // 同意选项的回调
                             HashMap<String, Object> sc_map;
                             sc_map = new HashMap<>();
-                            sc_map.put("customer_id", app.getApp_map().get("phone"));
+                            sc_map.put("customer_id", MyApp.getApp_map().get("phone"));
                             sc_map.put("shopper_id", owner);
                             sc_map.put("good_id", id);
                             sendHttp(sc_map, REQUIRE);
@@ -117,7 +115,7 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
             case R.id.sc:       // 收藏按钮
                 HashMap<String, Object> sc_map;
                 sc_map = new HashMap<>();
-                sc_map.put("phoneNumber", app.getApp_map().get("phone"));
+                sc_map.put("phoneNumber", MyApp.getApp_map().get("phone"));
                 sc_map.put("id", getIntent().getStringExtra("id"));
                 current = (current + 1) % 2;
                 sc_box.setImageResource(select[current]);
@@ -181,7 +179,6 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
             if (msg.what == 1) {        // 给界面填充数据
                 CommodityInfoActivity com = weakReference.get();
                 com.initComponents();
-                MyApp app = (MyApp) com.getApplication();
                 HashMap<String, Object> map = (HashMap<String, Object>) msg.obj;
                 com.sc_box.setOnClickListener(weakReference.get());
                 com.btn_want.setOnClickListener(weakReference.get());
@@ -196,7 +193,7 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
                     com.current = 0;
                 }
                 com.sc_box.setImageResource(com.select[com.current]);
-                if (com.owner != null && com.owner.equals(app.getApp_map().get("phone"))) {      // 商品物主不可求购自己物品
+                if (com.owner != null && com.owner.equals(MyApp.getApp_map().get("phone"))) {      // 商品物主不可求购自己物品
                     com.btn_want.setBackgroundColor(com.getResources().getColor(R.color.xui_btn_disable_color));
                     com.btn_want.setClickable(false);
                 } else {

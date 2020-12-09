@@ -25,10 +25,9 @@ public class RequestListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
-        MyApp app = (MyApp) getApplication();
         TitleBar titleBar = findViewById(R.id.titleBar_requestList);
         titleBar.setLeftClickListener(v -> this.finish());
-        String shopper_id = String.valueOf(app.getApp_map().get("phone"));
+        String shopper_id = String.valueOf(MyApp.getApp_map().get("phone"));
         String data = getIntent().getStringExtra("mapList");
         List<HashMap<String, Object>> mapList = new Gson().fromJson(data, new TypeToken<ArrayList<HashMap<String, Object>>>() {
         }.getType());

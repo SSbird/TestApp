@@ -23,6 +23,6 @@ public class MyItemActivity extends AppCompatActivity {
         TitleBar titleBar = findViewById(R.id.titleBar_myItem);
         titleBar.setLeftClickListener(v -> this.finish());
         rView.setLayoutManager(new LinearLayoutManager(MyItemActivity.this));
-        rView.setAdapter(new LinearAdapter_MyItem(this, app.getApp_map(), MyApp.getUser_item_list()));
+        rView.setAdapter(new LinearAdapter_MyItem(this, MyApp.getApp_map(), MyApp.getUser_item_list()));
     }
 }
