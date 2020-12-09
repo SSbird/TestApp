@@ -96,7 +96,7 @@ public class AddItemFragment extends Fragment {
                 novate.RxUploadWithBody("/addItemInfo", body, new RxStringCallback() {
                     @Override
                     public void onError(Object tag, Throwable e) {
-
+                        XToastUtils.error("请求出错!");
                     }
 
                     @Override
