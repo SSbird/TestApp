@@ -33,7 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
@@ -44,19 +44,18 @@
                 android:maxLines="2"
                 android:text="卖家："
                 android:textColor="@color/xui_config_color_75_pure_black"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@id/owner_name"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:maxLines="2"
                 android:text=" "
                 android:textAlignment="center"
                 android:textColor="@color/xui_config_color_75_pure_black"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -65,31 +64,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="商品信息："
+            android:text="@string/commodity_info"
             android:textColor="@color/xui_config_color_60_pure_black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
 
         <TextView
             android:id="@+id/information"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:text="商品："
+            android:text=""
             android:textColor="@color/xui_config_color_pure_black"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
 
         <TextView
             android:id="@+id/com_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text=" "
+            android:text=""
             android:textColor="@color/xui_config_color_red"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -103,10 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/sc"
-            android:text="收藏"
+            android:layout_toEndOf="@id/sc"
+            android:text="@string/collect"
             android:textColor="@color/xui_config_color_75_pure_black"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:textSize="18sp" />
 
         <ImageView
@@ -121,20 +120,24 @@
             android:id="@+id/ly"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/wxy"
+            android:layout_toStartOf="@+id/wxy"
             android:background="@color/xui_config_color_50_blue"
-            android:text="留言"
+            android:text="@string/comment"
             android:textColor="@android:color/white" />
 
-        <Button
+        <com.xuexiang.xui.widget.button.ButtonView
             android:id="@+id/wxy"
             android:layout_width="80dp"
+            android:paddingTop="15dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/xui_config_color_red"
-            android:text="我想要"
-            android:textColor="@android:color/white" />
+            android:layout_alignParentEnd="true"
+            app:textSolidColor="@color/menu_red_normal"
+            app:textSelectedSolidColor="@color/menu_red_pressed"
+            android:textAlignment="center"
+            android:text="@string/add_request"
+            android:textSize="18sp"
+            android:textColor="@color/xui_config_color_white" />
 
     </RelativeLayout>
 

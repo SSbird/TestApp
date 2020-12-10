@@ -44,5 +44,9 @@
     <string name="shopper_name">卖家名称</string>
     <string name="trade_success">交易成功</string>
     <string name="payment">实付款 ￥</string>
+    <string name="commodity_info">商品信息：</string>
+    <string name="collect">收藏</string>
+    <string name="comment">留言</string>
+    <string name="add_request">我想要</string>
 
 </resources>

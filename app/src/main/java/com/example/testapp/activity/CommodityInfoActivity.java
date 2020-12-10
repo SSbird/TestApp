@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +23,7 @@ import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
+import com.xuexiang.xui.widget.button.ButtonView;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xui.widget.popupwindow.good.GoodView;
 import com.xuexiang.xui.widget.popupwindow.good.IGoodView;
@@ -34,7 +34,7 @@ import java.util.HashMap;
 // 商品详情页
 public class CommodityInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_want;
+    private ButtonView btn_want;
     private ImageView sc_box;
     private TextView ownerName;
     private TextView desc;
