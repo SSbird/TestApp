@@ -41,5 +41,8 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shopper_name">卖家名称</string>
+    <string name="trade_success">交易成功</string>
+    <string name="payment">实付款 ￥</string>
 
 </resources>

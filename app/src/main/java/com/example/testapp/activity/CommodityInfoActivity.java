@@ -47,8 +47,8 @@ public class CommodityInfoActivity extends AppCompatActivity implements View.OnC
     private IGoodView goodView;
 
     private static final String INFO_ITEM = "/getItemInfo";
-    private static final String COLL_DEL = "/delUserCol";
-    private static final String COLL_ADD = "/addUserCol";
+    private static final String COLL_DEL = "/delUserCollect";
+    private static final String COLL_ADD = "/addUserCollect";
     private static final String REQUIRE = "/addRequire";
     private static final int ADD_REQUEST_SUCCESS = 2;
     private static final int NOT_ENOUGH_MONEY = 3;

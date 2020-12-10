@@ -93,7 +93,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
             case R.id.myItem:       //  我发布的
                 HashMap<String, Object> release_map = new HashMap<>();
                 release_map.put("phoneNumber", MyApp.getApp_map().get("phone"));
-                sendHttp("/getSelfItemCount", release_map);
+                sendHttp("/getSelfItemList", release_map);
                 break;
             case R.id.myBuy:        //  我购买的
                 HashMap<String, Object> map = new HashMap<>();
@@ -151,15 +151,15 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                     MyApp.setUser_coll_list(mapList);
                     startActivity(intent);
                 } else if ("/checkMyWallet".equals(url)) {
-                    intent = new Intent(getActivity(), MyMoneyActivity.class);
                     double temp = Double.parseDouble(response);
+                    intent = new Intent(getActivity(), MyMoneyActivity.class);
                     intent.putExtra("money", temp);
                     startActivity(intent);
                 } else if ("/getSelfBuyItems".equals(url)) {
                     intent = new Intent(getActivity(), MyBuyActivity.class);
                     intent.putExtra("mapList", response);
                     startActivity(intent);
-                } else if ("/getSelfItemCount".equals(url)) {
+                } else if ("/getSelfItemList".equals(url)) {
                     List<HashMap<String, Object>> mapList = new Gson().fromJson(response, new TypeToken<ArrayList<HashMap<String, Object>>>() {
                     }.getType());
                     MyApp.getApp_map().put("user_release_count", mapList.size());
